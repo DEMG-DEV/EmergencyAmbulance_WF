@@ -99,5 +99,64 @@ namespace EmergencyAmbulance_WF
             listBox1.Items.Add(de.ToString());
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string emergenciaout = listBox1.Items[0].ToString();
+            string id = emergenciaout.Substring(emergenciaout.Length - 1, 1);
+            //MessageBox.Show("" + id);
+
+            agregarEmergencia(id);
+
+            listBox1.Items.RemoveAt(0);
+        }
+
+        private void agregarEmergencia(string id)
+        {
+            int idAmbulancia = 0;
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[3].Value.ToString() == "Disponible")
+                {
+                    MessageBox.Show("" + dataGridView1.Rows[i].Cells[0].Value.ToString());
+                    idAmbulancia = Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value.ToString());
+                    break;
+                }
+            }
+            ConexionMySQL conexion = new ConexionMySQL();
+            if (idAmbulancia != 0)
+            {
+                try
+                {
+                    string Query = "INSERT INTO ambulanciasemergencias(idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia) VALUES(" + idAmbulancia + ",\"" + emergencias[0].latitudEmergencia + "," + emergencias[0].longitudEmergencia + "\",\"" + DateTime.Now.ToString("G") + "\");";
+                    MySqlDataReader adapter = conexion.conexionSendData(Query);
+                    while (adapter.Read())
+                    {
+                    }
+                    conexion.conexionClose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                emergencias.RemoveAt(0);
+
+                try
+                {
+                    string Query = "UPDATE ambulanciasdisponibles SET disponibleAmbulancia=\"No Disponible\" WHERE idAmbulancia=" + idAmbulancia + ";";
+                    MySqlDataReader adapter = conexion.conexionSendData(Query);
+                    while (adapter.Read())
+                    {
+                    }
+                    conexion.conexionClose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                cargarAmbulancias();
+            }
+        }
     }
 }
