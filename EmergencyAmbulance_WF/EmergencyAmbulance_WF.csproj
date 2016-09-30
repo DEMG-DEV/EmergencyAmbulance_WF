@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConexionMySQL.cs" />
+    <Compile Include="dataEmergencia.cs" />
     <Compile Include="Emergencias.cs">
       <SubType>Form</SubType>
     </Compile>
