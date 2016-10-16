@@ -32,5 +32,16 @@ namespace EmergencyAmbulance_WF.Properties {
                 return ((string)(this["emergencyConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;password=root;persistsecurityinfo=True;database=eme" +
+            "rgency")]
+        public string emergencyConnectionString1 {
+            get {
+                return ((string)(this["emergencyConnectionString1"]));
+            }
+        }
     }
 }

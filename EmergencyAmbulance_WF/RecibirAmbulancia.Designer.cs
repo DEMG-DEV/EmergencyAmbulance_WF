@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.emergencyDataSet = new EmergencyAmbulance_WF.emergencyDataSet();
             this.ambulanciasemergenciasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.emergencyDataSet = new EmergencyAmbulance_WF.emergencyDataSet();
             this.ambulanciasemergenciasTableAdapter = new EmergencyAmbulance_WF.emergencyDataSetTableAdapters.ambulanciasemergenciasTableAdapter();
             this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.emergencyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ambulanciasemergenciasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emergencyDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -47,15 +47,15 @@
             this.comboBox1.Size = new System.Drawing.Size(284, 21);
             this.comboBox1.TabIndex = 0;
             // 
-            // emergencyDataSet
-            // 
-            this.emergencyDataSet.DataSetName = "emergencyDataSet";
-            this.emergencyDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // ambulanciasemergenciasBindingSource
             // 
             this.ambulanciasemergenciasBindingSource.DataMember = "ambulanciasemergencias";
             this.ambulanciasemergenciasBindingSource.DataSource = this.emergencyDataSet;
+            // 
+            // emergencyDataSet
+            // 
+            this.emergencyDataSet.DataSetName = "emergencyDataSet";
+            this.emergencyDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // ambulanciasemergenciasTableAdapter
             // 
@@ -80,13 +80,15 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(325, 131);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(325, 131);
             this.Name = "RecibirAmbulancia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RecibirAmbulancia";
             this.Load += new System.EventHandler(this.RecibirAmbulancia_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.emergencyDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ambulanciasemergenciasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emergencyDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }

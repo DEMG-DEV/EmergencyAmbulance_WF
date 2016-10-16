@@ -74,6 +74,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>emergencyDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="emergencyDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>emergencyDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +124,9 @@
     <EmbeddedResource Include="RecibirAmbulancia.resx">
       <DependentUpon>RecibirAmbulancia.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="emergencyDataSet.xsc">
       <DependentUpon>emergencyDataSet.xsd</DependentUpon>
     </None>
@@ -129,6 +137,17 @@
     </None>
     <None Include="emergencyDataSet.xss">
       <DependentUpon>emergencyDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="emergencyDataSet1.xsc">
+      <DependentUpon>emergencyDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="emergencyDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>emergencyDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="emergencyDataSet1.xss">
+      <DependentUpon>emergencyDataSet1.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
