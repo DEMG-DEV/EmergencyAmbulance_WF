@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Autor.Designer.cs">
+      <DependentUpon>Autor.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConexionMySQL.cs" />
     <Compile Include="dataEmergencia.cs" />
     <Compile Include="Emergencias.cs">
@@ -105,8 +111,14 @@
     <Compile Include="Reportes.Designer.cs">
       <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Autor.resx">
+      <DependentUpon>Autor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Emergencias.resx">
       <DependentUpon>Emergencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial.resx">
+      <DependentUpon>Historial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -173,6 +185,8 @@
     <None Include="Resources\repertorium-icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ic_near_me_white_48dp_1x.png" />
+    <None Include="Resources\ic_local_hospital_white_48dp_1x.png" />
     <Content Include="ScripSQL\EmergencyDB.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

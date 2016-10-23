@@ -37,5 +37,16 @@ namespace EmergencyAmbulance_WF
             eme.MdiParent = this;
             eme.Show();
         }
+
+        private void autorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Autor a = new Autor();
+            a.ShowDialog();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

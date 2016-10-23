@@ -73,6 +73,26 @@ namespace EmergencyAmbulance_WF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ic_local_hospital_white_48dp_1x {
+            get {
+                object obj = ResourceManager.GetObject("ic_local_hospital_white_48dp_1x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_near_me_white_48dp_1x {
+            get {
+                object obj = ResourceManager.GetObject("ic_near_me_white_48dp_1x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap medical_report_icon {
             get {
                 object obj = ResourceManager.GetObject("medical-report-icon", resourceCulture);

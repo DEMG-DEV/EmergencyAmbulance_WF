@@ -111,7 +111,7 @@ namespace EmergencyAmbulance_WF
                 dataGridView1.Columns[2].HeaderText = "Disponibilidad";
 
                 dataGridView1.Columns[0].Width = 50;
-                dataGridView1.Columns[1].Width = 120;
+                dataGridView1.Columns[1].Width = 200;
                 dataGridView1.Columns[2].Width = 100;
             }
             catch (Exception ex)
