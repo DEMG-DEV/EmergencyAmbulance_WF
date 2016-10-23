@@ -187,6 +187,8 @@
   <ItemGroup>
     <None Include="Resources\ic_near_me_white_48dp_1x.png" />
     <None Include="Resources\ic_local_hospital_white_48dp_1x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ScripSQL\EmergencyDB.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

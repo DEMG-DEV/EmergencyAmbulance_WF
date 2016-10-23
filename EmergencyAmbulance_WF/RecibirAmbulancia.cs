@@ -71,7 +71,7 @@ namespace EmergencyAmbulance_WF
             DataRow row = datosRow.Rows[0];
             try
             {
-                string Query = "INSERT INTO ambulanciashistorial(idEmergencia,idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia,horaEntradaEmergencia) VALUES(" + row["idEmergencia"] + "," + row["idAmbulancia"] + ",\"" + row["ubicacionEmergencia"].ToString() + "\",\"" + row["horaSalidaEmergencia"].ToString() + "\",\"" + DateTime.Now.ToString("G") + "\"); ";
+                string Query = "INSERT INTO ambulanciashistorial(idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia,horaEntradaEmergencia) VALUES(" + row["idAmbulancia"] + ",\"" + row["ubicacionEmergencia"].ToString() + "\",\"" + row["horaSalidaEmergencia"].ToString() + "\",\"" + DateTime.Now.ToString("G") + "\"); ";
                 MySqlDataReader adapter = conexion.conexionSendData(Query);
                 while (adapter.Read())
                 {
@@ -80,7 +80,7 @@ namespace EmergencyAmbulance_WF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Agregar,\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             // Actualizar estatus de ambulancia    
@@ -95,10 +95,10 @@ namespace EmergencyAmbulance_WF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Editar,\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // Eliminar registro de "ambulanciasemergencias"
+            //Eliminar registro de "ambulanciasemergencias"
             try
             {
                 string Query = "DELETE FROM ambulanciasemergencias WHERE idEmergencia=" + idEmergencia + ";";
@@ -110,7 +110,7 @@ namespace EmergencyAmbulance_WF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Eliminar,\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             this.Dispose();
