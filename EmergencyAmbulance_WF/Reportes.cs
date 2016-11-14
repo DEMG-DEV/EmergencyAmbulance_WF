@@ -13,9 +13,12 @@ namespace EmergencyAmbulance_WF
 {
     public partial class Reportes : Form
     {
-        public Reportes()
+        private string[] Datos;
+
+        public Reportes(string[] datos)
         {
             InitializeComponent();
+            Datos = datos;
         }
 
         private void Reportes_Load(object sender, EventArgs e)
@@ -36,7 +39,7 @@ namespace EmergencyAmbulance_WF
 
         private void cargarDatos(int idReporte)
         {
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             DataTable datosRow = new DataTable();
             try
             {
@@ -67,7 +70,7 @@ namespace EmergencyAmbulance_WF
 
         private string getAmbulancia(int idAmbulancia)
         {
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             DataTable datosRow = new DataTable();
             try
             {

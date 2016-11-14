@@ -17,9 +17,11 @@ namespace EmergencyAmbulance_WF
 {
     public partial class Historial : Form
     {
-        public Historial()
+        private string[] Datos;
+        public Historial(string[] datos)
         {
             InitializeComponent();
+            Datos = datos;
         }
 
         private void Historial_Load(object sender, EventArgs e)
@@ -34,7 +36,7 @@ namespace EmergencyAmbulance_WF
         {
             GMapOverlay markers = new GMapOverlay("markers");
             GMapMarker marker;
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             DataTable datosRow = new DataTable();
             try
             {

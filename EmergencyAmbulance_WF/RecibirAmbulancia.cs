@@ -13,9 +13,11 @@ namespace EmergencyAmbulance_WF
 {
     public partial class RecibirAmbulancia : Form
     {
-        public RecibirAmbulancia()
+        private string[] Datos;
+        public RecibirAmbulancia(string[] datos)
         {
             InitializeComponent();
+            Datos = datos;
         }
 
         private void RecibirAmbulancia_Load(object sender, EventArgs e)
@@ -27,7 +29,7 @@ namespace EmergencyAmbulance_WF
 
         private DataTable cargarDatos()
         {
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             DataTable datosRow = new DataTable();
             try
             {
@@ -53,7 +55,7 @@ namespace EmergencyAmbulance_WF
         private void recibir(int idEmergencia)
         {
             // Obtengo datos segun el id seleccionado en el combobox
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             DataTable datosRow = new DataTable();
             try
             {

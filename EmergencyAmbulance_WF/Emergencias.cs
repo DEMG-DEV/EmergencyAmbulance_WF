@@ -20,9 +20,12 @@ namespace EmergencyAmbulance_WF
 {
     public partial class Emergencias : Form
     {
-        public Emergencias()
+        private string[] Datos;
+
+        public Emergencias(string[] datos)
         {
             InitializeComponent();
+            Datos = datos;
             //webBrowser1.ScriptErrorsSuppressed = true;
         }
 
@@ -96,7 +99,7 @@ namespace EmergencyAmbulance_WF
         // Codigo relacionado a MySQL
         private void cargarAmbulancias()
         {
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             try
             {
                 string Query = "SELECT idAmbulancia,nombreAmbulancia,disponibleAmbulancia FROM ambulanciasdisponibles";
@@ -145,7 +148,7 @@ namespace EmergencyAmbulance_WF
                     break;
                 }
             }
-            ConexionMySQL conexion = new ConexionMySQL();
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
             if (idAmbulancia != 0)
             {
                 try
@@ -182,7 +185,7 @@ namespace EmergencyAmbulance_WF
 
         private void button2_Click(object sender, EventArgs e)
         {
-            RecibirAmbulancia ra = new RecibirAmbulancia();
+            RecibirAmbulancia ra = new RecibirAmbulancia(Datos);
             ra.ShowDialog(this);
             cargarAmbulancias();
         }

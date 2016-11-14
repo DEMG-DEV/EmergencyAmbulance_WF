@@ -10,7 +10,14 @@ namespace EmergencyAmbulance_WF
     class ConexionMySQL
     {
         MySqlConnection connection = new MySqlConnection();
-        string port = "3306", server = "localhost", user = "root", pass = "root", database = "emergency";
+        string port = "3306", server = "", user = "", pass = "", database = "emergency";
+
+        public ConexionMySQL(string[] conection)
+        {
+            this.server = conection[0];
+            this.user = conection[1];
+            this.pass = conection[2];
+        }
 
         public MySqlDataReader conexionSendData(String sqlCadena)
         {
