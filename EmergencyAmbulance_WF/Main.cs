@@ -16,7 +16,7 @@ namespace EmergencyAmbulance_WF
         public Main()
         {
             InitializeComponent();
-
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -61,6 +61,10 @@ namespace EmergencyAmbulance_WF
                 this.data = l.data;
             }
             else if (res == DialogResult.Cancel)
+            {
+                Main_Load(sender, e);
+            }
+            else if (res == DialogResult.Abort)
             {
                 this.Close();
             }

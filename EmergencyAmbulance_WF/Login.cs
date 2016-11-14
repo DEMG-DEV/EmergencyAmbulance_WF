@@ -82,5 +82,11 @@ namespace EmergencyAmbulance_WF
             }
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Abort;
+            this.Close();
+        }
     }
 }
