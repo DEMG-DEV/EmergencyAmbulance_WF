@@ -14,11 +14,16 @@ namespace EmergencyAmbulance_WF
     public partial class Reportes : Form
     {
         private string[] Datos;
+        string port = "3306", server = "", user = "", pass = "", database = "emergency";
 
-        public Reportes(string[] datos)
+        public Reportes(string[] conection)
         {
             InitializeComponent();
-            Datos = datos;
+            this.server = conection[0];
+            this.user = conection[1];
+            this.pass = conection[2];
+            reporte_medicoTableAdapter.Connection.ConnectionString = "Server=" + server + "; Port=" + port + "; Database=" + database + "; Uid=" + user + "; Pwd=" + pass + ";";
+            Datos = conection;
         }
 
         private void Reportes_Load(object sender, EventArgs e)
