@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergencyAmbulance_WF", "EmergencyAmbulance_WF\EmergencyAmbulance_WF.csproj", "{FB695AEB-E0D4-4CA1-8F95-E4BA00284CEE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0FB3AB45-CFB8-4814-9ADD-F686A10103A3} = {0FB3AB45-CFB8-4814-9ADD-F686A10103A3}
-	EndProjectSection
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "Setup\Setup.isproj", "{0FB3AB45-CFB8-4814-9ADD-F686A10103A3}"
 EndProject

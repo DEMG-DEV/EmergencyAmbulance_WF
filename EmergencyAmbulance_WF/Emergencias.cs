@@ -20,6 +20,11 @@ namespace EmergencyAmbulance_WF
 {
     public partial class Emergencias : Form
     {
+        List<dataEmergencia> emergenciasList = new List<dataEmergencia>();
+        GMap.NET.WindowsForms.GMapOverlay markers = new GMap.NET.WindowsForms.GMapOverlay("markers");
+        GMap.NET.WindowsForms.GMapMarker marker;
+        int count = 0;
+
         private string[] Datos;
 
         public Emergencias(string[] datos)
@@ -31,10 +36,15 @@ namespace EmergencyAmbulance_WF
 
         private void Emergencias_Load(object sender, EventArgs e)
         {
+            // se cargan las ambulancias
             cargarAmbulancias();
-            System.Threading.Thread newThread = new System.Threading.Thread(emergenciaAleatoria);
+
+            // Inicia thread que busca cada 30 seg en la bd de emergencia
+            System.Threading.Thread newThread = new System.Threading.Thread(cargarEmergencias);
             newThread.Start();
             CheckForIllegalCrossThreadCalls = false;
+
+            // se crea mapa y se localiza a la mitad de Torreón
             gMapControl1.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             gMapControl1.Position = new GMap.NET.PointLatLng(25.5428443, -103.40678609999998);
@@ -42,58 +52,65 @@ namespace EmergencyAmbulance_WF
         }
 
         // Codigo relacionado a la generacion aleatoria de emergencias
-        private void emergenciaAleatoria()
+        private void cargarEmergencias()
         {
             Random r = new Random();
             System.Timers.Timer aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = r.Next(1000, 10000);
+            aTimer.Interval = 15000;
             aTimer.Enabled = true;
         }
 
-        List<dataEmergencia> emergenciasList = new List<dataEmergencia>();
-        GMap.NET.WindowsForms.GMapOverlay markers = new GMap.NET.WindowsForms.GMapOverlay("markers");
-        GMap.NET.WindowsForms.GMapMarker marker;
-        int count = 0;
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            count++;
+            // limpia List y arraylist
+            listBox1.Items.Clear();
+            emergenciasList.Clear();
+            marker = null;
+            markers.Clear();
 
-            Random random = new Random();
+            // codigo nuevo, solo carga las emergencias de la BD
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
+            try
+            {
+                string Query = "SELECT idEmergencia,ubicacionEmergencia FROM emergencias WHERE statusEmergencia=\"Activo\"";
+                MySqlDataAdapter adapter = conexion.conexionGetData(Query);
+                DataTable datos = new DataTable();
+                adapter.Fill(datos);
+                conexion.conexionClose();
 
-            // Convert radius from meters to degrees
-            double radiusInDegrees = 5000 / 111000f;
+                if (datos.Rows.Count != 0)
+                {
+                    for (int i = 0; i < datos.Rows.Count; i++)
+                    {
+                        String[] latLong = datos.Rows[i][1].ToString().Split(',');
 
-            double u = random.NextDouble();
-            double v = random.NextDouble();
-            double w = radiusInDegrees * Math.Sqrt(u);
-            double t = 2 * Math.PI * v;
-            double x = w * Math.Cos(t);
-            double y = w * Math.Sin(t);
+                        dataEmergencia de = new dataEmergencia();
+                        de.idEmergencia = Convert.ToInt64(datos.Rows[i][0].ToString());
+                        de.nombreEmergencia = "Emergencia Num. " + Convert.ToInt64(datos.Rows[i][0].ToString());
+                        de.latitudEmergencia = Convert.ToDouble(latLong[0].ToString());
+                        de.longitudEmergencia = Convert.ToDouble(latLong[1].ToString());
 
-            // Adjust the x-coordinate for the shrinking of the east-west distances
-            double new_x = x / Math.Cos(25.5428443);
+                        emergenciasList.Add(de);
 
-            double foundLongitude = new_x + -103.40678609999998;
-            double foundLatitude = y + 25.5428443;
+                        listBox1.Items.Add(de.ToString());
 
-            dataEmergencia de = new dataEmergencia();
-            de.idEmergencia = count;
-            de.nombreEmergencia = "Emergencia Num. " + count;
-            de.latitudEmergencia = foundLatitude;
-            de.longitudEmergencia = foundLongitude;
+                        // posiciona la emergencia en el mapa
+                        marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(new GMap.NET.PointLatLng(Convert.ToDouble(latLong[0]), Convert.ToDouble(latLong[1])), GMap.NET.WindowsForms.Markers.GMarkerGoogleType.lightblue);
+                        markers.Markers.Add(marker);
+                        marker.ToolTipText = de.nombreEmergencia;
+                        marker.ToolTip.Fill = Brushes.DarkCyan;
+                        marker.ToolTip.Foreground = Brushes.White;
+                        marker.ToolTip.Stroke = Pens.Black;
+                        marker.ToolTip.TextPadding = new Size(20, 20);
+                        gMapControl1.Overlays.Add(markers);
+                    }
+                }
 
-            emergenciasList.Add(de);
-
-            //posiciones[count, 0] = Convert.ToString(de.latitudEmergencia);
-            //posiciones[count, 1] = Convert.ToString(de.longitudEmergencia);
-
-            listBox1.Items.Add(de.ToString());
-
-            marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(new GMap.NET.PointLatLng(foundLatitude, foundLongitude), GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red);
-            markers.Markers.Add(marker);
-            marker.ToolTipText = de.nombreEmergencia;
-            gMapControl1.Overlays.Add(markers);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         // Codigo relacionado a MySQL
@@ -102,7 +119,7 @@ namespace EmergencyAmbulance_WF
             ConexionMySQL conexion = new ConexionMySQL(Datos);
             try
             {
-                string Query = "SELECT idAmbulancia,nombreAmbulancia,disponibleAmbulancia FROM ambulanciasdisponibles";
+                string Query = "SELECT * FROM ambulanciasdisponibles";
                 MySqlDataAdapter adapter = conexion.conexionGetData(Query);
                 DataTable datos = new DataTable();
                 adapter.Fill(datos);
@@ -129,10 +146,29 @@ namespace EmergencyAmbulance_WF
             //MessageBox.Show("" + id);
 
             agregarEmergencia(id);
+            cambiarStatusEmergencia(id);
 
             listBox1.Items.RemoveAt(0);
             markers.Markers.RemoveAt(0);
             gMapControl1.Overlays.Add(markers);
+        }
+
+        private void cambiarStatusEmergencia(string id)
+        {
+            ConexionMySQL conexion = new ConexionMySQL(Datos);
+            try
+            {
+                string Query = "UPDATE emergencias SET statusEmergencia=\"No Activo\" WHERE idEmergencia=" + id + ";";
+                MySqlDataReader adapter = conexion.conexionSendData(Query);
+                while (adapter.Read())
+                {
+                }
+                conexion.conexionClose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al Editar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void agregarEmergencia(string id)
@@ -153,7 +189,7 @@ namespace EmergencyAmbulance_WF
             {
                 try
                 {
-                    string Query = "INSERT INTO ambulanciasemergencias(idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia) VALUES(" + idAmbulancia + ",\"" + emergenciasList[0].latitudEmergencia + "," + emergenciasList[0].longitudEmergencia + "\",\"" + DateTime.Now.ToString("G") + "\");";
+                    string Query = "INSERT INTO ambulanciasemergencias(idEmergencia,idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia) VALUES(" + emergenciasList[0].idEmergencia + "," + idAmbulancia + ",\"" + emergenciasList[0].latitudEmergencia + "," + emergenciasList[0].longitudEmergencia + "\",\"" + DateTime.Now.ToString("G") + "\");";
                     MySqlDataReader adapter = conexion.conexionSendData(Query);
                     while (adapter.Read())
                     {

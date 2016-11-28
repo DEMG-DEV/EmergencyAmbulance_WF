@@ -73,7 +73,7 @@ namespace EmergencyAmbulance_WF
             DataRow row = datosRow.Rows[0];
             try
             {
-                string Query = "INSERT INTO ambulanciashistorial(idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia,horaEntradaEmergencia) VALUES(" + row["idAmbulancia"] + ",\"" + row["ubicacionEmergencia"].ToString() + "\",\"" + row["horaSalidaEmergencia"].ToString() + "\",\"" + DateTime.Now.ToString("G") + "\"); ";
+                string Query = "INSERT INTO ambulanciashistorial(idEmergencia,idAmbulancia,ubicacionEmergencia,horaSalidaEmergencia,horaEntradaEmergencia) VALUES(" + row["idEmergencia"] + "," + row["idAmbulancia"] + ",\"" + row["ubicacionEmergencia"].ToString() + "\",\"" + row["horaSalidaEmergencia"].ToString() + "\",\"" + DateTime.Now.ToString("G") + "\"); ";
                 MySqlDataReader adapter = conexion.conexionSendData(Query);
                 while (adapter.Read())
                 {

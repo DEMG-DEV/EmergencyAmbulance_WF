@@ -40,7 +40,7 @@ namespace EmergencyAmbulance_WF
             DataTable datosRow = new DataTable();
             try
             {
-                string Query = "SELECT	ambulanciasdisponibles.nombreAmbulancia,ambulanciashistorial.* FROM ambulanciashistorial, ambulanciasdisponibles WHERE ambulanciashistorial.idAmbulancia = ambulanciasdisponibles.idAmbulancia";
+                string Query = "SELECT	ambulanciasdisponibles.nombreAmbulancia,ambulanciashistorial.*,emergencias.* FROM ambulanciashistorial, ambulanciasdisponibles, emergencias WHERE ambulanciashistorial.idAmbulancia = ambulanciasdisponibles.idAmbulancia AND ambulanciashistorial.idEmergencia = emergencias.idEmergencia; ";
                 MySqlDataAdapter adapter = conexion.conexionGetData(Query);
                 adapter.Fill(datosRow);
                 conexion.conexionClose();
@@ -57,8 +57,14 @@ namespace EmergencyAmbulance_WF
                 marker = new GMarkerGoogle(
                     new PointLatLng(Convert.ToDouble(latlng[0]), Convert.ToDouble(latlng[1])), GMarkerGoogleType.lightblue_pushpin);
                 markers.Markers.Add(marker);
-                marker.ToolTipText = "Folio: " + row["idEmergencia"] + "\n" + row["nombreAmbulancia"] + "\n" +
-                    "Salida: " + row["horaSalidaEmergencia"] + "\n" + "Regreso: " + row["horaEntradaEmergencia"];
+                marker.ToolTipText = "Folio: " + row["idEmergencia"] + "\n"
+                    + row["nombreAmbulancia"] + "\n" +
+                    "Salida: " + row["horaSalidaEmergencia"] + "\n"
+                    + "Regreso: " + row["horaEntradaEmergencia"] + "\n"
+                    + "Dirección: " + row["numeroEmergencia"] + ", C. " + row["calleEmergencia"] + " Col. " + row["coloniaEmergencia"] + " C.P. " + row["cpEmergencia"] + "\n"
+                    + "entre calles: " + row["entreCallesEmergencia"] + ", Otras referencias: " + row["otrasReferenciasEmergencia"] + "\n"
+                    + row["ciudadEmergencia"] + " " + row["estadoEmergencia"];
+
                 marker.ToolTip.Fill = Brushes.DarkCyan;
                 marker.ToolTip.Foreground = Brushes.White;
                 marker.ToolTip.Stroke = Pens.Black;
