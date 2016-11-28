@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `emergency` /*!40100 DEFAULT CHARACTER SET utf8 *
 USE `emergency`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: emergency
+-- Host: 127.0.0.1    Database: emergency
 -- ------------------------------------------------------
--- Server version	5.7.15-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -50,12 +50,12 @@ DROP TABLE IF EXISTS `ambulanciasemergencias`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ambulanciasemergencias` (
-  `idEmergencia` int(11) NOT NULL AUTO_INCREMENT,
+  `idEmergencia` int(11) NOT NULL,
   `idAmbulancia` int(11) DEFAULT NULL,
   `ubicacionEmergencia` varchar(300) DEFAULT NULL,
   `horaSalidaEmergencia` text,
   PRIMARY KEY (`idEmergencia`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,13 +75,13 @@ DROP TABLE IF EXISTS `ambulanciashistorial`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ambulanciashistorial` (
-  `idEmergencia` int(11) NOT NULL AUTO_INCREMENT,
+  `idEmergencia` int(11) NOT NULL,
   `idAmbulancia` int(11) DEFAULT NULL,
   `ubicacionEmergencia` text,
   `horaSalidaEmergencia` text,
   `horaEntradaEmergencia` text,
   PRIMARY KEY (`idEmergencia`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,8 +90,41 @@ CREATE TABLE `ambulanciashistorial` (
 
 LOCK TABLES `ambulanciashistorial` WRITE;
 /*!40000 ALTER TABLE `ambulanciashistorial` DISABLE KEYS */;
-INSERT INTO `ambulanciashistorial` VALUES (1,1,'25.5193536903939,-103.393792359061','17/10/2016 06:36:35 p. m.','17/10/2016 06:36:47 p. m.'),(2,1,'25.5303167457943,-103.437389883824','19/10/2016 02:52:40 p. m.','19/10/2016 02:52:54 p. m.'),(3,2,'25.5745593929059,-103.404281807824','19/10/2016 02:52:47 p. m.','19/10/2016 02:52:52 p. m.'),(13,1,'25.5263687796685,-103.396504509517','15/10/2016 05:24:53 p. m.','16/10/2016 02:40:20 p. m.'),(14,2,'25.5662743371073,-103.396175696688','15/10/2016 05:25:08 p. m.','16/10/2016 02:51:54 p. m.'),(15,3,'25.5754354719547,-103.418991651335','15/10/2016 05:31:16 p. m.','16/10/2016 02:54:22 p. m.'),(16,4,'25.5254801366791,-103.369675112967','15/10/2016 05:31:27 p. m.','16/10/2016 02:54:24 p. m.'),(17,5,'25.540815004451,-103.442677571418','15/10/2016 05:35:46 p. m.','16/10/2016 02:54:26 p. m.'),(18,6,'25.5526789001876,-103.36034298454','15/10/2016 05:35:59 p. m.','16/10/2016 02:54:28 p. m.'),(19,1,'25.5654417195157,-103.440292824218','16/10/2016 02:54:04 p. m.','16/10/2016 02:54:15 p. m.'),(20,1,'25.5522488745257,-103.442545226114','16/10/2016 06:10:29 p. m.','16/10/2016 06:10:42 p. m.'),(21,3,'25.5461266440938,-103.404571196552','23/10/2016 01:32:20 p. m.','23/10/2016 01:39:28 p. m.'),(22,4,'25.5046141034297,-103.389400693325','23/10/2016 01:35:50 p. m.','23/10/2016 01:39:49 p. m.');
+INSERT INTO `ambulanciashistorial` VALUES (1,1,'25.5547648,-103.3300987','27/11/2016 06:08:20 p. m.','27/11/2016 06:08:39 p. m.'),(2,1,'25.5320047,-103.4755958','27/11/2016 06:09:00 p. m.','27/11/2016 06:10:29 p. m.'),(3,2,'25.5318613,-103.4756955','27/11/2016 06:09:56 p. m.','27/11/2016 06:10:02 p. m.'),(4,1,'25.5547442,-103.3297904','27/11/2016 06:10:30 p. m.','27/11/2016 06:10:33 p. m.'),(5,1,'25.5547264,-103.3303277','27/11/2016 06:24:41 p. m.','27/11/2016 06:24:44 p. m.'),(6,1,'25.5547421,-103.3298749','27/11/2016 06:28:26 p. m.','27/11/2016 06:28:29 p. m.');
 /*!40000 ALTER TABLE `ambulanciashistorial` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `emergencias`
+--
+
+DROP TABLE IF EXISTS `emergencias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `emergencias` (
+  `idEmergencia` int(11) NOT NULL AUTO_INCREMENT,
+  `calleEmergencia` varchar(200) DEFAULT NULL,
+  `coloniaEmergencia` varchar(200) DEFAULT NULL,
+  `numeroEmergencia` int(11) DEFAULT NULL,
+  `cpEmergencia` int(11) DEFAULT NULL,
+  `ciudadEmergencia` varchar(200) DEFAULT NULL,
+  `estadoEmergencia` varchar(200) DEFAULT NULL,
+  `entreCallesEmergencia` varchar(500) DEFAULT NULL,
+  `otrasReferenciasEmergencia` varchar(500) DEFAULT NULL,
+  `ubicacionEmergencia` varchar(300) DEFAULT NULL,
+  `statusEmergencia` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idEmergencia`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `emergencias`
+--
+
+LOCK TABLES `emergencias` WRITE;
+/*!40000 ALTER TABLE `emergencias` DISABLE KEYS */;
+INSERT INTO `emergencias` VALUES (1,'HUERTO LA JOYA','REAL DEL SOL',8813,27087,'TORREON','COAHUILA','','','25.5547648,-103.3300987','No Activo'),(2,'NAZARIO ORTIZ GARZA','SAN CARLOS',668,27087,'TORREON','COAHUILA','','','25.5320047,-103.4755958','No Activo'),(3,'NAZARIO ORTIZ GARZA','SAN CARLOS',253,27310,'TORREON','COAHUILA','','','25.5318613,-103.4756955','No Activo'),(4,'HUERTO LA JOYA','REAL DEL SOL',8827,27087,'TORREON','COAHUILA','','','25.5547442,-103.3297904','No Activo'),(5,'HUERTO LA JOYA','REAL DEL SOL 1',8807,27087,'TORREON','COAHUILA','FOSFORITA Y REAL DE DUNAS','CASA CON MALLA GALLINERA','25.5547264,-103.3303277','No Activo'),(6,'HUERTO LA JOYA','REAL DEL SOL 1',8821,27087,'TORREON','COAHUILA','FOSFORITA Y REAL DE DUNAS','CASA ROSA','25.5547421,-103.3298749','No Activo');
+/*!40000 ALTER TABLE `emergencias` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -114,7 +147,7 @@ CREATE TABLE `reporte_medico` (
   `sangrePaciente` varchar(50) DEFAULT NULL,
   `diagnosticoPaciente` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`idReporte`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +156,7 @@ CREATE TABLE `reporte_medico` (
 
 LOCK TABLES `reporte_medico` WRITE;
 /*!40000 ALTER TABLE `reporte_medico` DISABLE KEYS */;
-INSERT INTO `reporte_medico` VALUES (1,1,'15/10/2016 0:00:00','David','Mendez Guardado','Hombre',22,'100/90','100/60','A +','no\ntiene\nnada\nel\npaciente'),(2,1,'15/10/2016 16:44:36','David','Mendez Guardado','Hombre',22,'100/60','90/50','A +','no\ntiene\nnada\nel\npaciente'),(3,4,'15/10/2016 16:45:26','David','Mendez Guardado','Mujer',22,'100/60','90/50','O +','no\ntiene\nnada\nel\npaciente'),(4,4,'15/10/2016 16:45:40','David','Mendez Guardado','Hombre',22,'100/60','90/50','AB -','no\ntiene\nnada\nel\npaciente'),(5,10,'15/10/2016 16:45:50','David','Mendez Guardado','Hombre',22,'100/60','90/50','AB -','no\ntiene\nnada\nel\npaciente'),(6,1,'16/10/2016 16:1:34','Daniel','Lope','Hombre',35,'100/90','80/60','B -','no tiene ningún síntoma raro el paciente ni tampoco este texto d varias líneas\nverdad'),(7,8,'16/10/2016 16:5:5','Jose','Pavon','Mujer',85,'70/90','40/60','A -','solo nada presión alta'),(8,1,'19/10/2016 18:39:8','Test','test','Hombre',22,'test','test','A +','test');
+INSERT INTO `reporte_medico` VALUES (1,1,'15/10/2016 0:00:00','David','Mendez Guardado','Hombre',22,'100/90','100/60','A +','no\ntiene\nnada\nel\npaciente'),(2,1,'15/10/2016 16:44:36','David','Mendez Guardado','Hombre',22,'100/60','90/50','A +','no\ntiene\nnada\nel\npaciente'),(3,4,'15/10/2016 16:45:26','David','Mendez Guardado','Mujer',22,'100/60','90/50','O +','no\ntiene\nnada\nel\npaciente'),(4,4,'15/10/2016 16:45:40','David','Mendez Guardado','Hombre',22,'100/60','90/50','AB -','no\ntiene\nnada\nel\npaciente'),(5,10,'15/10/2016 16:45:50','David','Mendez Guardado','Hombre',22,'100/60','90/50','AB -','no\ntiene\nnada\nel\npaciente'),(6,1,'16/10/2016 16:1:34','Daniel','Lope','Hombre',35,'100/90','80/60','B -','no tiene ningún síntoma raro el paciente ni tampoco este texto d varias líneas\nverdad'),(7,8,'16/10/2016 16:5:5','Jose','Pavon','Mujer',85,'70/90','40/60','A -','solo nada presión alta'),(8,1,'19/10/2016 18:39:8','Test','test','Hombre',22,'test','test','A +','test'),(9,8,'9/11/2016 17:12:7','test','test','Mujer',96,'test','test','O -','test'),(10,1,'14/11/2016 18:29:37','Jerrry Lengua','Taladro','Hombre',25,'120-90','78','O +','El\nf\ng\n\ngg\n\ngg'),(11,1,'14/11/2016 18:29:54','Jerrry Lengua','Taladro','Hombre',25,'120-90','78','O +','El\nf\ng\n\ngg\n\ngg'),(12,1,'14/11/2016 18:49:29','Luis ','Herrera','Hombre',28,'120/110','40 a 60\n40 a 60','O +','Alumno contreras con delirio de que siempre tiene hueva y busca pokemones al por mayor '),(13,1,'18/11/2016 23:3:29','daniel','lopez molins','Hombre',56,'120/39','123-36','O -','тιene preѕιón мυy baja'),(14,1,'18/11/2016 23:3:46','daniel','lopez molins','Hombre',56,'X/X','X-X','O -','тιene preѕιón мυy baja'),(15,1,'18/11/2016 23:10:43','jose','morelos','Hombre',23,'X/X','X-X','O -','no тenιa pulso'),(16,1,'18/11/2016 23:11:16','jose','morelos','Hombre',23,'56/23','15-85','O -','no тenιa pulso'),(17,1,'18/11/2016 23:40:47','test','test','Hombre',13,'X/X','X-X','A +','de varias \nlineas'),(18,1,'18/11/2016 23:57:4','test','test','Hombre',99,'100/80','100-80','B -','diagnostico de\nvarias\nlíneas'),(19,1,'18/11/2016 23:57:30','test','test','Hombre',99,'100/80','100-80','B -','diagnostico de\nvarias\nlíneas'),(20,1,'25/11/2016 17:2:1','Emmanuel ','Rosales','Hombre',28,'110/90','60-12','O +','Loquera aguda'),(21,1,'25/11/2016 17:4:30','Raul','Salazar','Mujer',21,'80/60','100-60','AB -','Fractura de miembros superior derecho'),(22,1,'25/11/2016 17:5:39','Erick','Hernandez','Hombre',22,'120/100','80-40','B -','Contusión craneal '),(23,4,'25/11/2016 18:5:14','David','Mendez','Hombre',22,'X/X','X-X','A +','no se'),(24,1,'25/11/2016 19:57:0','Nayelli','Aguilar','Mujer',15,'120/60','X-X','O +','Rotura de clavícula ');
 /*!40000 ALTER TABLE `reporte_medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,4 +177,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-23 13:41:46
+-- Dump completed on 2016-11-27 18:40:04
